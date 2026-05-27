@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # 🏏 IPL Match Predictor
 
@@ -901,5 +901,3 @@ python datawarehouse.py            # Just build the warehouse
 
 **DWDM Course Project — IPL Match Predictor**
 
-</div>
-]]>

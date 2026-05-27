@@ -176,7 +176,7 @@ def page_player_analysis():
             paper_bgcolor='rgba(0,0,0,0)',
             font=dict(size=13)
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     # Top Players Table
     st.subheader("📊 Top Players")
@@ -188,7 +188,7 @@ def page_player_analysis():
                                           'economy_rate', 'all_rounder_score',
                                           'cluster_label'] if 'cluster_label' in df.columns else
                                          ['player', 'total_runs', 'strike_rate']]
-        st.dataframe(top, use_container_width=True, hide_index=True)
+        st.dataframe(top, width="stretch", hide_index=True)
 
 
 # ── Page 2: Team Analysis ──────────────────────────────────────────────────────
@@ -220,11 +220,11 @@ def page_team_analysis():
             plot_bgcolor='rgba(0,0,0,0)',
             paper_bgcolor='rgba(0,0,0,0)',
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     with col2:
         st.subheader("Win Summary")
-        st.dataframe(team_wins, use_container_width=True, hide_index=True)
+        st.dataframe(team_wins, width="stretch", hide_index=True)
 
     st.markdown("---")
 
@@ -277,7 +277,7 @@ def page_team_analysis():
         plot_bgcolor='rgba(0,0,0,0)',
         paper_bgcolor='rgba(0,0,0,0)',
     )
-    st.plotly_chart(fig_heatmap, use_container_width=True)
+    st.plotly_chart(fig_heatmap, width="stretch")
 
 
 # ── Page 3: Match Prediction ───────────────────────────────────────────────────
@@ -307,7 +307,7 @@ def page_match_prediction():
 
     venue = st.selectbox("🏟️ Venue", all_venues, index=0)
 
-    if st.button("🔮 Predict Winner", type="primary", use_container_width=True):
+    if st.button("🔮 Predict Winner", type="primary", width="stretch"):
         with st.spinner("Training model and making prediction..."):
             try:
                 result = _predict_match(enriched, team1, team2, venue, toss_winner, toss_decision)
@@ -351,7 +351,7 @@ def page_match_prediction():
                                  template='plotly_dark',
                                  color='Probability (%)',
                                  color_continuous_scale='Viridis')
-                    st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig, width="stretch")
             except Exception as e:
                 st.error(f"Prediction failed: {e}")
 
@@ -466,13 +466,13 @@ def page_data_warehouse():
         """, conn)
         col1, col2 = st.columns([1, 1])
         with col1:
-            st.dataframe(q1, use_container_width=True, hide_index=True)
+            st.dataframe(q1, width="stretch", hide_index=True)
         with col2:
             if not q1.empty:
                 fig = px.bar(q1, x='Venue', y='Avg_Margin', template='plotly_dark',
                              color='Avg_Margin', color_continuous_scale='Plasma')
                 fig.update_layout(xaxis_tickangle=-30, height=350)
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width="stretch")
 
         st.markdown("---")
 
@@ -490,7 +490,7 @@ def page_data_warehouse():
             fig = px.bar(q2, x='Season', y='Matches', color='Decision',
                          barmode='group', template='plotly_dark',
                          color_discrete_sequence=['#38ef7d', '#f5576c'])
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
         st.markdown("---")
 
@@ -515,8 +515,8 @@ def page_data_warehouse():
         if not q3.empty:
             fig = px.bar(q3, x='Season', y='Wins', color='Team',
                          template='plotly_dark', color_discrete_sequence=px.colors.qualitative.Bold)
-            st.plotly_chart(fig, use_container_width=True)
-            st.dataframe(q3, use_container_width=True, hide_index=True)
+            st.plotly_chart(fig, width="stretch")
+            st.dataframe(q3, width="stretch", hide_index=True)
 
         st.markdown("---")
 
@@ -531,13 +531,13 @@ def page_data_warehouse():
         """, conn)
         col1, col2 = st.columns([1, 1])
         with col1:
-            st.dataframe(q4, use_container_width=True, hide_index=True)
+            st.dataframe(q4, width="stretch", hide_index=True)
         with col2:
             if not q4.empty:
                 fig = px.bar(q4, x='Player', y='AR_Score', template='plotly_dark',
                              color='AR_Score', color_continuous_scale='Viridis')
                 fig.update_layout(xaxis_tickangle=-45, height=400)
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width="stretch")
 
         st.markdown("---")
 
@@ -553,11 +553,11 @@ def page_data_warehouse():
             GROUP BY cluster_label ORDER BY Avg_AR DESC
         """, conn)
         if not q5.empty:
-            st.dataframe(q5, use_container_width=True, hide_index=True)
+            st.dataframe(q5, width="stretch", hide_index=True)
             fig = px.bar(q5, x='Cluster', y=['Avg_Runs', 'Avg_Wickets', 'Avg_AR'],
                          barmode='group', template='plotly_dark',
                          title='Cluster Comparison')
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
     except Exception as e:
         st.error(f"Error querying warehouse: {e}")
