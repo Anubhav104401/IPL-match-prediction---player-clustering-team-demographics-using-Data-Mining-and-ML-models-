@@ -5,17 +5,42 @@
 ### Data Warehousing & Data Mining (DWDM) Project
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-1.2+-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
-![Pandas](https://img.shields.io/badge/Pandas-1.5+-150458?style=for-the-badge&logo=pandas&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
-![SQLite](https://img.shields.io/badge/SQLite-Warehouse-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
-![Matplotlib](https://img.shields.io/badge/Matplotlib-Plots-11557C?style=for-the-badge)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.56-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![Plotly](https://img.shields.io/badge/Plotly-6.7-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-1.7-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-2.3-150458?style=for-the-badge&logo=pandas&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-Star%20Schema-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 ![SHAP](https://img.shields.io/badge/SHAP-Explainability-blueviolet?style=for-the-badge)
+![Playwright](https://img.shields.io/badge/Playwright-Doc%20Capture-2EAD33?style=for-the-badge&logo=playwright&logoColor=white)
 ![License](https://img.shields.io/badge/License-Academic-green?style=for-the-badge)
 
-**An end-to-end data science pipeline that uses unsupervised clustering to profile IPL players & teams, and supervised classification to predict match winners — backed by a star-schema data warehouse and an interactive Streamlit dashboard.**
+**An end-to-end data science pipeline that uses unsupervised clustering to profile IPL players & teams, and supervised classification to predict match winners — backed by a star-schema data warehouse and a five-page analytics console.**
 
 </div>
+
+---
+
+## The console
+
+A dark, typographic analytics interface built on Streamlit 1.56 — a bespoke design system
+(*"Stadium Nights"*), franchise-accurate colour coding, inline-SVG components and a custom
+Plotly template, all wired to the pipeline's own outputs.
+
+<img src="docs/screenshots/overview.png" alt="Overview — corpus summary, league rhythm and the franchise ladder" width="100%">
+
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/players.png" alt="Players — PCA archetype map, radar fingerprints and leaderboards"><br><em>Players — archetype discovery</em></td>
+<td width="50%"><img src="docs/screenshots/teams.png" alt="Teams — ladder, head-to-head matrix and toss behaviour"><br><em>Teams — records and rivalries</em></td>
+</tr>
+<tr>
+<td width="50%"><img src="docs/screenshots/prediction.png" alt="Match prediction — fixture setup and model verdict"><br><em>Match prediction — the verdict</em></td>
+<td width="50%"><img src="docs/screenshots/warehouse.png" alt="Data warehouse — star schema diagram and OLAP queries"><br><em>Data warehouse — schema and OLAP</em></td>
+</tr>
+</table>
+
+> Screenshots are generated, not pasted: `python scripts/capture_screenshots.py` boots the app,
+> drives it with Playwright and rewrites every image in `docs/screenshots/`.
 
 ---
 
@@ -32,10 +57,10 @@
 | 7 | [Team Clustering](#7--unsupervised-learning--team-clustering-team_clusteringpy) | Dynamic team categorization |
 | 8 | [Match Prediction](#8--supervised-learning--match-prediction-classificationpy) | 4-model comparison + SHAP |
 | 9 | [Data Warehouse](#9--data-warehouse-datawarehousepy) | Star schema + OLAP queries |
-| 10 | [Interactive Dashboard](#10--interactive-dashboard-dashboardpy) | Streamlit web application |
+| 10 | [Interactive Dashboard](#10--interactive-dashboard-apppy) | Five-page Streamlit console + design system |
 | 11 | [CSV Generator Scripts](#11--csv-generator-scripts) | Data preparation utilities |
 | 12 | [Results & Outputs](#12--results--outputs) | Interpretation of all outputs |
-| 13 | [Technologies Used](#13--technologies-used) | Library-by-library breakdown |
+| 13 | [Technologies Used](#13--technologies-used) | Frontend, data/modelling and tooling stacks |
 | 14 | [How to Run the Project](#14--how-to-run-the-project) | Step-by-step execution guide |
 | 15 | [ML Concepts Quick Reference](#15--ml-concepts-quick-reference) | Glossary for presentations |
 | 16 | [Potential Questions & Answers](#16--potential-questions--answers) | 20 Q&As for viva/presentation |
@@ -52,7 +77,7 @@ This project implements a **complete data science pipeline** on Indian Premier L
 1. **Preprocessing** — Load and validate two raw datasets (1,095 matches × 260,920 ball-by-ball deliveries).
 2. **Feature Engineering** — Compute 20+ enriched batting, bowling, all-rounder, venue, and head-to-head statistics.
 3. **Unsupervised Learning (Clustering)** — Profile players into meaningful archetypes (Elite All-Rounder, Key Bowler, etc.) using KMeans + PCA, and categorize teams as Strong/Average/Weak.
-4. **Supervised Learning (Classification)** — Train and compare four ML models (Random Forest, Gradient Boosting, Logistic Regression, SVM) to predict match winners with ~96–97% accuracy.
+4. **Supervised Learning (Classification)** — Train and compare four ML models (Random Forest, Gradient Boosting, Logistic Regression, SVM) to predict match winners. See the [note on the headline accuracy](#123-match-predictions) before quoting a number.
 5. **Data Warehousing** — Build a star-schema SQLite database with fact and dimension tables, then run 5 analytical OLAP queries.
 6. **Interactive Dashboard** — Serve a Streamlit web app with player analysis, team analysis, live match prediction, and warehouse analytics.
 
@@ -608,16 +633,71 @@ Top features typically include: venue-related one-hot columns, team-specific col
 
 ---
 
-## 10 · Interactive Dashboard (`dashboard.py`)
+## 10 · Interactive Dashboard (`app.py`)
 
-A **4-page Streamlit web application** launched via `streamlit run dashboard.py`:
+A **five-page Streamlit application**, launched with `streamlit run app.py`
+(`streamlit run dashboard.py` still works — it is a one-line shim kept for
+backwards compatibility).
 
-| Page | Features |
-|------|----------|
-| 🏏 **Player Analysis** | PCA scatter plot with cluster coloring, filter by cluster, top players table sortable by runs/SR/AR score/wickets |
-| 🏆 **Team Analysis** | Total wins bar chart (top 15), head-to-head heatmap (top 10 teams) |
-| 🎯 **Match Prediction** | Select team1, team2, venue, toss winner, toss decision → predict winner + confidence % + win probability bar chart |
-| 🗄️ **Data Warehouse** | All 5 OLAP queries rendered as tables + Plotly charts |
+### 10.1 Pages
+
+| Page | What it answers | Key components |
+|------|-----------------|----------------|
+| **Overview** | *What is in this dataset?* | Corpus KPIs with count-up numerals and sparklines, matches/margins per season, franchise ladder with crests, venue share, live pipeline-artefact status |
+| **Players** | *How does each player actually play?* | Filterable PCA archetype map, radar "fingerprints" per cluster, squad composition donut, four tabbed leaderboards |
+| **Teams** | *Who wins, and against whom?* | All-time ladder, head-to-head win-rate matrix, season-by-season leaders, toss behaviour vs. a coin-flip baseline |
+| **Match prediction** | *Who wins this fixture?* | Fixture builder, franchise match-up panel, historical head-to-head, animated confidence ring, calibrated probability split |
+| **Data warehouse** | *What does the star schema make cheap?* | Animated inline-SVG schema diagram sized by real row counts, five OLAP queries each with its SQL |
+
+### 10.2 Architecture
+
+The dashboard is no longer a single script. Presentation, data access and modelling are separated:
+
+```
+app.py                    ← shell: page config, theme, routing (st.navigation), sidebar
+dashboard.py              ← backwards-compatible shim → app.main()
+
+ui/                       ← the design system (no page logic lives here)
+├── tokens.py             ← single source of truth for colour, type, motion
+├── theme.py              ← global stylesheet + animated aurora backdrop
+├── components.py         ← hero, stat tiles, rank lists, crests, rings, insights
+├── charts.py             ← registered Plotly template + chart factories
+├── brand.py              ← franchise identity: kit colours, codes, cluster styles
+├── data.py               ← cached loaders, derived views, pipeline introspection
+└── model.py              ← cached classifier + fixture scoring
+
+views/                    ← one module per page, composed from ui/
+├── overview.py  players.py  teams.py  prediction.py  warehouse.py
+
+.streamlit/config.toml    ← native theme: surfaces, radii, chart palettes, web fonts
+assets/                   ← SVG logo + favicon
+scripts/                  ← capture_screenshots.py (regenerates the images above)
+```
+
+### 10.3 Design system — "Stadium Nights"
+
+| Decision | Rationale |
+|----------|-----------|
+| **Franchise-accurate colour** | Every team encoding uses that team's real kit colours (`ui/brand.py`), so charts are readable without consulting a legend |
+| **Tokens in one place** | `ui/tokens.py` emits every colour as a CSS custom property *and* feeds the Plotly template, so widgets, components and charts can never drift apart |
+| **Registered Plotly template** | `stadium_nights` is set as the process-wide default — any figure, even an ad-hoc one, inherits the type scale, grid weight, hover card and palette |
+| **Legends below, titles above** | A horizontal legend beside the title is where categorical charts collide; the template gives each its own band |
+| **Inline SVG components** | Crests, sparklines, the confidence ring and the schema diagram are hand-authored SVG — no chart library involved, so they scale and theme perfectly |
+| **Motion with a purpose** | Staggered entrances, count-up numerals and cursor-tracked card lighting; all of it disabled under `prefers-reduced-motion` |
+| **Honest empty states** | Every page degrades to an empty state naming the command that produces the missing artefact, instead of a traceback |
+
+### 10.4 Two implementation notes
+
+Both of these are Streamlit-version-specific and cost real debugging time, so they are
+documented in the code as well:
+
+- **`st.html` sanitises away `<svg>`** and silently drops an entire `<style>` block that
+  contains a remote `@import`. The design depends on both, so the stylesheet and all bespoke
+  markup travel through the `st.components.v2` `css`/`data` channels instead
+  (`ui/theme.py`, `ui/components.py`).
+- **Web fonts are declared as `[[theme.fontFaces]]`** in `.streamlit/config.toml` rather than
+  imported from CSS — this is the supported path, and it also lets Streamlit's own widgets use
+  the same typefaces.
 
 ---
 
@@ -665,27 +745,66 @@ Kings XI Punjab     Kings XI Punjab     100.0         1  ✓
 Delhi Capitals      Mumbai Indians       63.2         0  ✗
 ```
 
-- **Overall accuracy: ~96.74%**
-- Incorrect predictions typically occur for closely-matched teams where the model's confidence is lower (< 70%)
-- A "Correct = 0" means the model predicted the wrong winner — these errors often correspond to genuine upsets in real matches
+- **Reported accuracy of the pipeline model: ~96.74%**
+- **That number is not real.** The feature set in `classification.py` includes
+  `toss_winner_won`, which in the engineered dataset is exactly
+  `(toss_winner == winner)` — the label, restated. Paired with the one-hot
+  `toss_winner` column, the classifier can read the answer straight off its own
+  input. Removing that single feature drops held-out accuracy from **96.3% to
+  54.4%**, which tells you the model was never doing the work.
+- It is also unusable in practice: you cannot know whether the toss winner won
+  the match *before the match is played*. At inference the toss winner is always
+  one of the two sides, so the feature is pinned to 1 and the model simply
+  predicts whoever won the toss — at ~100% confidence.
+
+**The dashboard's model excludes it** (`ui/model.py`), and is regularised to keep
+its probabilities meaningful rather than saturated:
+
+| Model | Features | Held-out accuracy | Log-loss | Predictions above 0.9 confidence |
+|-------|----------|------------------|----------|----------------------------------|
+| Pipeline (`classification.py`) | includes `toss_winner_won` | 96.3% | 2.38 | 77% |
+| Console (`ui/model.py`) | leak removed, regularised | **61.9%** | **0.74** | **7%** |
+
+~62% on a two-horse T20 fixture is a genuine, modest edge over a coin flip — and
+it is the number the prediction page shows. `classification.py` has been left as
+it is; correcting the pipeline model is a separate change from this front-end work.
 
 ---
 
 ## 13 · Technologies Used
 
-| Technology | Version | Role in This Project |
+Versions below are the ones this project is developed and screenshotted against.
+
+### 13.1 Frontend & presentation
+
+| Technology | Version | Role in this project |
 |------------|---------|---------------------|
-| **Python** | 3.10+ | Core programming language for the entire pipeline |
-| **pandas** | ≥ 1.5.0 | Data loading, manipulation, aggregation, merging — the backbone of all data operations |
-| **NumPy** | ≥ 1.23.0 | Numerical operations, array math for metrics like strike rate, normalization |
-| **scikit-learn** | ≥ 1.2.0 | KMeans, DBSCAN, PCA, StandardScaler, RandomForest, GradientBoosting, LogisticRegression, SVM, train_test_split, cross-validation, metrics |
-| **matplotlib** | ≥ 3.6.0 | Static plots: elbow curve, PCA clusters, feature importance |
-| **seaborn** | ≥ 0.12.0 | Enhanced matplotlib styling |
-| **Plotly** | ≥ 5.11.0 | Interactive charts in the Streamlit dashboard |
-| **Streamlit** | ≥ 1.24.0 | Web-based interactive dashboard framework |
-| **SHAP** | ≥ 0.42.0 | Model explainability — Shapley-value-based feature importance |
-| **SQLite** | stdlib | Embedded database for the star-schema data warehouse |
-| **SciPy** | ≥ 1.9.0 | Scientific computing utilities used by scikit-learn internally |
+| **Streamlit** | 1.56 | Application framework. Uses `st.navigation` for real multi-page routing with URLs, `st.logo` for the sidebar masthead, `st.components.v2` for unsanitised CSS/JS delivery, and the 1.56 advanced theme system (`baseRadius`, `headingFont`, `chartCategoricalColors`, `[[theme.fontFaces]]`, per-sidebar theming) |
+| **Plotly** | 6.7 | Every chart. A custom `go.layout.Template` (`stadium_nights`) is registered as the process-wide default so all figures share one visual language |
+| **HTML / CSS** | — | ~19 KB hand-authored stylesheet: design tokens as CSS custom properties, glassmorphic surfaces, an animated aurora backdrop, gradient text, `:has()` state styling, `prefers-reduced-motion` and print rules |
+| **Inline SVG** | — | Franchise crests, sparklines, the animated confidence ring, the logo and the star-schema diagram — all generated in Python, no icon or chart dependency |
+| **Vanilla JavaScript** | — | One `st.components.v2` runtime: `IntersectionObserver`-driven count-up numerals and cursor-tracked card lighting, both no-ops under reduced motion |
+| **Google Fonts** | — | Space Grotesk (display), Inter (UI), JetBrains Mono (numerals), loaded via `[[theme.fontFaces]]`, latin subsets only |
+
+### 13.2 Data & modelling
+
+| Technology | Version | Role in this project |
+|------------|---------|---------------------|
+| **Python** | 3.10+ | Core language for the entire pipeline |
+| **pandas** | 2.3 | Data loading, manipulation, aggregation, merging — the backbone of all data operations |
+| **NumPy** | 2.2 | Numerical operations and array math for metrics like strike rate and normalisation |
+| **scikit-learn** | 1.7 | KMeans, DBSCAN, PCA, StandardScaler, RandomForest, GradientBoosting, LogisticRegression, SVM, train/test split, metrics |
+| **SQLite** | stdlib | Embedded database for the star-schema warehouse |
+| **SHAP** | 0.49 | Model explainability — Shapley-value feature importance |
+| **matplotlib / seaborn** | 3.10 / 0.13 | Static pipeline plots (elbow curve, PCA clusters, SHAP importance) written to `plots/` |
+| **SciPy** | 1.15 | Scientific computing used internally by scikit-learn |
+
+### 13.3 Tooling
+
+| Technology | Version | Role in this project |
+|------------|---------|---------------------|
+| **Playwright** | latest | Headless Chromium driver behind `scripts/capture_screenshots.py` — boots the app, emulates reduced motion, grows the viewport to the full page height and rewrites every README screenshot |
+| **Pillow** | 12.2 | Downsamples the 2× captures to 1500 px so the repository stays light |
 
 ---
 
@@ -720,10 +839,23 @@ This executes all 5 stages automatically:
 ### Step 3: Launch the Dashboard
 
 ```bash
-streamlit run dashboard.py
+streamlit run app.py
 ```
 
-Opens at `http://localhost:8501` in your browser.
+Opens at `http://localhost:8501`. Each page has its own URL — `/players`, `/teams`,
+`/prediction`, `/warehouse` — so they can be linked and bookmarked directly.
+
+`streamlit run dashboard.py` remains valid; it is a shim that calls the same entry point.
+
+### Step 4 (optional): Regenerate the screenshots
+
+```bash
+pip install playwright && playwright install chromium
+python scripts/capture_screenshots.py
+```
+
+Rewrites every image in `docs/screenshots/`. Pass a page name (`overview`, `players`,
+`teams`, `prediction`, `warehouse`) to capture just one.
 
 ### Expected Output Files After Running
 

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 64" width="300" height="64" role="img" aria-label="IPL Analytics">
+  <defs>
+    <linearGradient id="ball" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="55%" stop-color="#818CF8"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="70%" stop-color="#C9D4F0"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(6 10)">
+    <circle cx="22" cy="22" r="19" fill="url(#ball)" fill-opacity="0.12" stroke="url(#ball)" stroke-width="2.4"/>
+    <path d="M11 10c7 6 15 18 22 24" stroke="url(#ball)" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.95"/>
+    <path d="M7.5 16c6 4.5 14.5 14 19.5 20.5" stroke="url(#ball)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.5"/>
+    <path d="M16 6.5c6.5 5 15 15.5 20 22.5" stroke="url(#ball)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.5"/>
+  </g>
+  <text x="60" y="30" font-family="Space Grotesk, Inter, system-ui, sans-serif" font-size="20" font-weight="700" letter-spacing="-0.5" fill="url(#word)">IPL Analytics</text>
+  <text x="61" y="46" font-family="JetBrains Mono, ui-monospace, monospace" font-size="9" font-weight="500" letter-spacing="2.6" fill="#6C7796">DATA MINING CONSOLE</text>
+</svg>

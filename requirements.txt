@@ -1,0 +1,24 @@
+# ── Core pipeline ────────────────────────────────────────────────────────────
+pandas>=2.0
+numpy>=1.26
+scikit-learn>=1.4
+scipy>=1.11
+
+# ── Static plots written to plots/ by the pipeline ───────────────────────────
+matplotlib>=3.8
+seaborn>=0.13
+
+# ── Model explainability ─────────────────────────────────────────────────────
+shap>=0.45
+
+# ── Dashboard ────────────────────────────────────────────────────────────────
+# Streamlit 1.56 is a hard floor: the console relies on st.navigation,
+# st.components.v2 and the advanced [theme] options in .streamlit/config.toml.
+streamlit>=1.56
+plotly>=6.0
+
+# ── Docs tooling (optional) ──────────────────────────────────────────────────
+# Only needed to regenerate docs/screenshots via scripts/capture_screenshots.py:
+#   pip install playwright && playwright install chromium
+# playwright>=1.40
+# pillow>=10.0

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="IPL Analytics">
+  <defs>
+    <linearGradient id="b" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="55%" stop-color="#818CF8"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+  </defs>
+  <circle cx="24" cy="24" r="19" fill="url(#b)" fill-opacity="0.14" stroke="url(#b)" stroke-width="2.6"/>
+  <path d="M13 12c7 6 15 18 22 24" stroke="url(#b)" stroke-width="1.9" stroke-linecap="round" fill="none"/>
+  <path d="M9.5 18c6 4.5 14.5 14 19.5 20.5" stroke="url(#b)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.55"/>
+  <path d="M18 8.5c6.5 5 15 15.5 20 22.5" stroke="url(#b)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.55"/>
+</svg>
