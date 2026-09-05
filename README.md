@@ -44,6 +44,24 @@ Plotly template, all wired to the pipeline's own outputs.
 
 ---
 
+## Field manual
+
+**[docs/PROJECT_GUIDE.html](docs/PROJECT_GUIDE.html)** — a ~23,000-word ground-up reference covering
+every file in the project, written for someone with no programming background.
+
+| It covers | In detail |
+|-----------|-----------|
+| Every source file | What each one does, function by function, with line numbers |
+| Every column | All 20 columns of `matches.csv`, all 17 of `deliveries.csv` |
+| Every algorithm | What was chosen, what the alternatives were, and what would have changed |
+| The leakage story | Why the headline accuracy was 96% and why the honest number is 62% |
+| The frontend, line by line | Every CSS block, every component, and a "I want to change X → edit this line" lookup table |
+| The runtime | The real port, the real endpoints, and why there is no middleware and no JSON request |
+
+Open it in any browser — it is a single self-contained HTML file.
+
+---
+
 ## 📑 Table of Contents
 
 | # | Section | Description |
@@ -65,6 +83,7 @@ Plotly template, all wired to the pipeline's own outputs.
 | 15 | [ML Concepts Quick Reference](#15--ml-concepts-quick-reference) | Glossary for presentations |
 | 16 | [Potential Questions & Answers](#16--potential-questions--answers) | 20 Q&As for viva/presentation |
 | 17 | [Limitations & Future Scope](#17--limitations--future-scope) | What can be improved |
+| — | [**Field Manual**](docs/PROJECT_GUIDE.html) | **Complete line-by-line reference (separate file)** |
 
 ---
 
